@@ -25,7 +25,7 @@ int main(void){
       - Taxes
       - Ports (à faire dans le main 💩)
    */
-   Bateau x = bateauPeche("Peche", 200, 1000);
+   Bateau x = bateauPeche("🍑", 200, 1000);
    Bateau y = bateauPlaisance("Sah ça fait plaisir", 200, 100, "René");
    Bateau z = voilier("Macarena", 400);
 
