@@ -15,9 +15,23 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#include "bateaux.h"
+#include "bateau.h"
+#include "affichage.h"
 
 int main(void){
+
+   /*
+   TODO : 
+      - Taxes
+      - Ports (à faire dans le main 💩)
+   */
+   Bateau x = bateauPeche("Peche", 200, 1000);
+   Bateau y = bateauPlaisance("Sah ça fait plaisir", 200, 100, "René");
+   Bateau z = voilier("Macarena", 400);
+
+   affichageBateau(x);
+   affichageBateau(y);
+   affichageBateau(z);
 
    return EXIT_SUCCESS;
 }

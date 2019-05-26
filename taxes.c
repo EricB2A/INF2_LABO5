@@ -1,15 +1,18 @@
 #include "taxes.h"
-
+#include "bateau.h"
 #define TAXE_BASE_VOILIER 50
 #define TAXE_BASE_MOTEUR 100
 
-double calculTaxes (Bateaux bateau){
+double calculTaxes (Bateau bateau){
    double taxeSpecifique;
-   if(bateau == Bateaux.UTypeBateau.voilier) {
-      taxeSpecifique = (BateauVoilier.surface < 200 ? 25 : 0);
+   // uhhh ça compile pas
+   /*
+   if(bateau == bateau.UTypeBateau.voilier) {
+      taxeSpecifique = (bateau.surface < 200 ? 25 : 0);
       return TAXE_BASE_VOILIER + taxeSpecifique;
    } else if(bateau == Bateaux.UTypeBateau.moteur){
       ...
    }
+   */
            
 }
