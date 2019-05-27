@@ -48,8 +48,8 @@
 #define MESSAGE_TAXE_MOYENNE "En moyenne"
 #define MESSAGE_TAXE_UNITE   "[EUR]"
 
-const Nom NOM_TYPES_BATEAUX[] = {"Bateau a moteur", "Voilier"};
-const Nom NOM_TYPES_BATEAUX_MOTEUR[] = {
+static const Nom NOM_TYPES_BATEAUX[] = {"Bateau a moteur", "Voilier"};
+static const Nom NOM_TYPES_BATEAUX_MOTEUR[] = {
    "Bateau de peche", "Bateau de plaisance"
 };
 

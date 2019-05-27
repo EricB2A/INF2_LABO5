@@ -33,5 +33,8 @@ int main(void){
    affichageBateau(y);
    affichageBateau(z);
 
+   printf("%d\n", typeBateau(x) == BATEAU_VOILIER);
+   printf("%d\n", typeBateau(x) == BATEAU_MOTEUR);
+
    return EXIT_SUCCESS;
 }

@@ -16,6 +16,8 @@
 #include "affichage.h"
 
 void affichageBateau(const Bateau bateau){
+       printf("%s %30s \n", MESSAGE_NOM_BATEAU, bateau.nom);
+       return;
    printf("%-*s %*s \n", 
           ALIGNEMENT_PORT_GAUCHE,
           MESSAGE_NOM_BATEAU,
