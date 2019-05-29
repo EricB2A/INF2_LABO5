@@ -67,7 +67,7 @@ int main(void){
     taxeTypeBateau = NULL;
 
     printf("Appuyez sur une touche pour continuer...\n");
-    getchar()
+    getchar();
 
     return EXIT_SUCCESS;
 }
