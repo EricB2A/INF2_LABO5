@@ -41,16 +41,21 @@ int main(void){
     Bateau x = bateauPeche("peche", 200, 1000);
     Bateau y = bateauPlaisance("Sah ça fait plaisir", 200, 100, "Rene");
     Bateau z = voilier("Macarena", 400);
-    Bateau test = bateauPlaisance("Wai", 12, 20, "Paul");
+    Bateau a = bateauPeche("peche", 200, 1000);
+    Bateau b = bateauPlaisance("Sah ça fait plaisir", 200, 100, "Rene");
+    Bateau c = voilier("Macarena", 400);
+    Bateau d = bateauPeche("peche", 200, 1000);
+    Bateau e = bateauPlaisance("Sah ça fait plaisir", 200, 100, "Rene");
+    Bateau f = voilier("Macarena", 400);
 
-    Bateau port[] = {x,y,z};
+    Bateau port[] = {x,y,z,a,b,c,d,e,f};
 
 
-    TaxeTypeBateau* taxeTypeBateau = (TaxeTypeBateau*) calloc(3, sizeof(TaxeTypeBateau));
+    TaxeTypeBateau* taxeTypeBateau = (TaxeTypeBateau*) calloc(9, sizeof(TaxeTypeBateau));
 
-    calculTaxesPort(port,3, taxeTypeBateau);
+    calculTaxesPort(port,9, taxeTypeBateau);
 
-    affichagePort(port, 3);
+    affichagePort(port, 9);
     affichageTaxe(taxeTypeBateau);
 
     free(taxeTypeBateau);
@@ -59,38 +64,44 @@ int main(void){
     affichageBateau(x);
     affichageBateau(y);
     affichageBateau(z);
-    affichageBateau(test);*/
+    */
 
     /*
-    printf("Taxes: %.2f\n", calculTaxes(x)); // doit faire 200 chf
-    printf("Taxes: %.2f\n", calculTaxes(y)); // doit faire 1600 chf
+    printf("Taxes: %.2f\n", calculTaxes(&x)); // doit faire 200 chf
+    printf("Taxes: %.2f\n", calculTaxes(&y)); // doit faire 1600 chf
     printf("Taxes: %.2f\n", calculTaxes(z)); // doit faire 75 chf
-    printf("Taxes: %.2f\n", calculTaxes(test)); // doit faire 150 chf
-    */
+   */
+     // printf("Taxes: %.2f\n", calculTaxes(test)); // doit faire 150 chf
+
 
     return EXIT_SUCCESS;
 }
 double calculMoyenne(double total, size_t nbrElements){
-    return total /nbrElements;
+        return total /nbrElements;
 }
 
 //https://en.wikiversity.org/wiki/C_Source_Code/Find_the_median_and_mean
 double calculMedian(double valeurs[], size_t taille){
-    double temp;
-    //trie les valeurs dans l'ordre croissant
-    for(size_t i = 0; i < taille-1; i++){
-        for(size_t j = 0; j < taille; j++){
-            if(valeurs[i] < valeurs[j]){
-                temp = valeurs[i];
-                valeurs[i] = valeurs[j];
-                valeurs[j] = temp;
+    if(taille == 1){
+        return valeurs[0];
+    }
+    else{
+        double temp;
+        //trie les valeurs dans l'ordre croissant
+        for(size_t i = 0; i < taille-1; i++){
+            for(size_t j = 0; j < taille; j++){
+                if(valeurs[i] < valeurs[j]){
+                    temp = valeurs[i];
+                    valeurs[i] = valeurs[j];
+                    valeurs[j] = temp;
+                }
             }
         }
+        if(taille % 2)
+            return((valeurs[taille/2] + valeurs[taille/2 - 1]) / 2.0);
+        else
+            return valeurs[taille/2];
     }
-    if(taille % 2)
-        return((valeurs[taille/2] + valeurs[taille/2 - 1]) / 2.0);
-    else
-        return valeurs[taille/2];
 }
 
 
@@ -105,21 +116,22 @@ void calculTaxesPort(const Bateau port[], size_t taille, TaxeTypeBateau* taxeTyp
     for(size_t i = 0; i < taille; i++){
         if(port[i].typeBateau == BATEAU_VOILIER){
             assert(taxesBateauxVoiliers);
-            *(taxesBateauxVoiliers + (taxeTypeBateau + ORDRE_VOILIER)->nombreBateaux) = calculTaxes(&port[i]);
+            printf("ZZZZZZZZZZZZZZZZZZZZZZZ %d",(int)(taxeTypeBateau + ORDRE_VOILIER)->nombreBateaux);
+            taxesBateauxVoiliers[(taxeTypeBateau + ORDRE_VOILIER)->nombreBateaux] = calculTaxes(&port[i]);
             (taxeTypeBateau + ORDRE_VOILIER)->sommeTotale += calculTaxes(&port[i]);
-            (taxeTypeBateau + ORDRE_VOILIER)->nombreBateaux++;
+            ++(taxeTypeBateau + ORDRE_VOILIER)->nombreBateaux;
         }
-        else if(port[i].typeBateau == BATEAU_PLAISANCE){
+        else if(typeBateauMoteur(&port[i]) == BATEAU_PLAISANCE){
             assert(taxesBateauxPlaisances);
-            *(taxesBateauxVoiliers + (taxeTypeBateau + ORDRE_PLAISANCE)->nombreBateaux) = calculTaxes(&port[i]);
+            taxesBateauxPlaisances[(taxeTypeBateau + ORDRE_PLAISANCE)->nombreBateaux] = calculTaxes(&port[i]);
             (taxeTypeBateau + ORDRE_PLAISANCE)->sommeTotale += calculTaxes(&port[i]);
-            (taxeTypeBateau + ORDRE_PLAISANCE)->nombreBateaux++;
+            ++(taxeTypeBateau + ORDRE_PLAISANCE)->nombreBateaux;
         }
-        else{
+        else if(typeBateauMoteur(&port[i]) == BATEAU_PECHE){
             assert(taxesBateauxPeches);
-            *(taxesBateauxVoiliers + (taxeTypeBateau + ORDRE_PECHE)->nombreBateaux) = calculTaxes(&port[i]);
+            taxesBateauxPeches[(taxeTypeBateau + ORDRE_PECHE)->nombreBateaux] = calculTaxes(&port[i]);
             (taxeTypeBateau + ORDRE_PECHE)->sommeTotale += calculTaxes(&port[i]);
-            (taxeTypeBateau + ORDRE_PECHE)->nombreBateaux++;
+            ++(taxeTypeBateau + ORDRE_PECHE)->nombreBateaux;
         }
     }
 
@@ -137,18 +149,28 @@ void calculTaxesPort(const Bateau port[], size_t taille, TaxeTypeBateau* taxeTyp
     //Reallocation des tableaux, on diminue la taille si necessaire afin de pouvoir calculer la mediane par la suite
     taxesBateauxVoiliers =realloc(taxesBateauxVoiliers, (taxeTypeBateau + ORDRE_VOILIER)->nombreBateaux * sizeof(double));
     taxesBateauxPeches = realloc(taxesBateauxPeches, (taxeTypeBateau + ORDRE_PECHE)->nombreBateaux * sizeof(double));
+    //tests
+    for(size_t h = 0; h < 3;h++){
+        printf("ICCCCCCCCCCCCCCCCCCCCCCCI_PECHE  %f", taxesBateauxPeches[h]);
+        printf("ICCCCCCCCCCCCCCCCCCCCCCCI_PLAISANCE  %f", taxesBateauxPlaisances[h]);
+        printf("ICCCCCCCCCCCCCCCCCCCCCCCI_VOILIER  %f", taxesBateauxVoiliers[h]);
+
+    }
+
+
+
     taxesBateauxPlaisances = realloc(taxesBateauxPlaisances, (taxeTypeBateau + ORDRE_PLAISANCE)->nombreBateaux * sizeof(double));
     assert(taxesBateauxVoiliers);
     assert(taxesBateauxPeches);
-  //  assert(taxesBateauxPlaisances);
+    assert(taxesBateauxPlaisances);
 
     //Calcul des taxes médianes
     (taxeTypeBateau + ORDRE_VOILIER)->montantMedian =
             calculMedian(taxesBateauxVoiliers, (taxeTypeBateau + ORDRE_VOILIER)->nombreBateaux);
     (taxeTypeBateau + ORDRE_PECHE)->montantMedian =
             calculMedian(taxesBateauxPeches, (taxeTypeBateau + ORDRE_PECHE)->nombreBateaux);
-    //(taxeTypeBateau + ORDRE_PLAISANCE)->montantMedian =
-      //      calculMedian(taxesBateauxPlaisances, (taxeTypeBateau + ORDRE_PLAISANCE)->nombreBateaux);
+    (taxeTypeBateau + ORDRE_PLAISANCE)->montantMedian =
+          calculMedian(taxesBateauxPlaisances, (taxeTypeBateau + ORDRE_PLAISANCE)->nombreBateaux);
 }
 
 void affichagePort(const Bateau port[], size_t taille){
