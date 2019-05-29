@@ -1,26 +1,24 @@
 /*
  -----------------------------------------------------------------------------------
- Laboratoire : <nn>
- Fichier     : <nom du fichier>.cpp
- Auteur(s)   : <prénom> <nom>
- Date        : <jj.mm.aaaa>
+ Laboratoire : 05
+ Fichier     : bateau.c
+ Auteur(s)   : Eric Bousbaa, Lucas Gianinetti, Cassandre Wojciechowski
+ Date        : 29.05.2019
 
- But         : <à compléter>
+ But         : Ce fichier contient les définitions des fonctions permettant de 
+ * construire les objets "Bateau" et des fonctions déterminant le type des bateaux 
+ * passés en paramètres. 
 
- Remarque(s) : <à compléter>
+ Remarque(s) : -
 
- Compilateur : MinGW-g++ <x.y.z>
+ Compilateur : - MinGW-gcc 6.3.0
+               - Apple LLVM version 9.0.0 (clang-900.0.39.2)
  -----------------------------------------------------------------------------------
 */
 
 #include "bateau.h"
 
-/*
-   TODO: 
-   - Faire fonction retournant le type d'un bateau {PLAISANCE, VOILIER, PECHE}
-      => je vois pas comment il veut faire ça, sachant que MOTEUR/VOILIER est un type
-         et PECHE/PUISSANCE en est un autre...
-*/
+// Construction d'un voilier
 Bateau voilier(Nom nom, uint16_t surfaceVoile){
    assert(nom);
    return (Bateau) {
@@ -33,6 +31,8 @@ Bateau voilier(Nom nom, uint16_t surfaceVoile){
       }
    };
 }
+
+// Construction d'un bateau de peche
 Bateau bateauPeche(Nom nom, uint16_t puissancMoteur, uint8_t capacitePecheMax){
    assert(nom);
    return (Bateau) { 
@@ -52,6 +52,7 @@ Bateau bateauPeche(Nom nom, uint16_t puissancMoteur, uint8_t capacitePecheMax){
    };
 }
 
+// Construction d'un bateau de plaisance
 Bateau bateauPlaisance(Nom nom, uint16_t puissanceMoteur, uint8_t longueur, Nom nomProprietaire){
    assert(nom); 
    return (Bateau) {
@@ -72,9 +73,12 @@ Bateau bateauPlaisance(Nom nom, uint16_t puissanceMoteur, uint8_t longueur, Nom 
    };
 }
 
+// On retourne le type de bateau (voilier ou moteur)
 TypeBateau typeBateau(const Bateau* bateau){
     return bateau->typeBateau;
 }
+
+// On retourne le type de bateau a moteur (peche ou plaisance)
 TypeBateauMoteur typeBateauMoteur(const Bateau* bateau){
     return bateau->uTypeBateau.bateauMoteur.typeBateauMoteur;
 }
