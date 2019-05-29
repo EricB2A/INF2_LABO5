@@ -5,9 +5,13 @@
  Auteur(s)   : Eric Bousbaa, Lucas Gianinetti, Cassandre Wojciechowski
  Date        : 29.05.2019
 
- But         : <à compléter>
+ But         : Ce fichier contient les divers éléments permettant de calculer les 
+ * taxes propres à chaque type de bateau et plus précisément à chaque bateau 
+ * directement. 
+ * Il contient aussi les déclarations des fonctions de calcul des taxes de chaque 
+ * bateau et des moyennes et médianes pour chaque type de bateau.
 
- Remarque(s) : <à compléter>
+ Remarque(s) : -
 
  Compilateur : - MinGW-gcc 6.3.0
                - Apple LLVM version 9.0.0 (clang-900.0.39.2)
