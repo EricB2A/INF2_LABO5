@@ -17,49 +17,44 @@
 
 void affichageBateau(const Bateau* bateau){
 
-       printf("%s %30s \n",
+       printf("%s "MESSAGE_SEPARATEUR" %s \n",
               MESSAGE_NOM_BATEAU,
               bateau->nom);
 
-       printf("%s %30s \n",
-              MESSAGE_CATEGORIES,
-              NOM_TYPES_BATEAUX[bateau->typeBateau]);
-
        if(typeBateau(bateau) == BATEAU_VOILIER){
-              printf("%s %*" PRIu16 " %s \n",
+
+               printf("%s "MESSAGE_SEPARATEUR" %s \n",
+                     MESSAGE_CATEGORIES,
+                     NOM_TYPES_BATEAUX[bateau->typeBateau]);
+
+              printf("%s "MESSAGE_SEPARATEUR" %" PRIu16 " %s \n",
                      MESSAGE_VOILE,
                      bateau->uTypeBateau.bateauVoilier.surfaceVoile,
                      MESSAGE_VOILE_UNITE);
 
        }else{ // BATEAU A MOTEUR
-
-              printf("%s %30s \n",
+                     
+              printf("%s "MESSAGE_SEPARATEUR" %s \n",
                      MESSAGE_CATEGORIES,
-                     NOM_TYPES_BATEAUX[bateau->typeBateau]);
+                     NOM_TYPES_BATEAUX[bateau->uTypeBateau.bateauMoteur.typeBateauMoteur]);
 
-              printf("%s %*" PRIu16 " %s \n",
+              printf("%s "MESSAGE_SEPARATEUR" %" PRIu16 " %s \n",
                      MESSAGE_PUISSANCE_MOTEUR,
                      bateau->uTypeBateau.bateauMoteur.puissanceMoteur,
-                     MESSAGE_PUISSANCE_MOTEUR_UNITE
-                     );
+                     MESSAGE_PUISSANCE_MOTEUR_UNITE);
 
               if(typeBateauMoteur(bateau) == BATEAU_PLAISANCE){
 
-                     printf("%s %30s \n",
+                     printf("%s "MESSAGE_SEPARATEUR" %s \n",
                             MESSAGE_NOM_PROPRIETAIRE,
                             bateau->uTypeBateau.bateauMoteur.uTypeBateauMoteur.bateauPlaisance.nomProprietaire);
-                     
-                     printf("%s %*" PRIu8 " %s \n",
+
+                     printf("%s "MESSAGE_SEPARATEUR" %" PRIu8 " %s \n",
                             MESSAGE_LONGUEUR_BATEAU,
                             bateau->uTypeBateau.bateauMoteur.uTypeBateauMoteur.bateauPlaisance.nomProprietaire,
-                            MESSAGE_LONGUEUR_BATEAU_UNITE
-                            );
-                     
+                            MESSAGE_LONGUEUR_BATEAU_UNITE);
               }
        }
 
-
-  
-   
-   printf("\n");
+       printf("\n");
 }

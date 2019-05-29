@@ -20,18 +20,15 @@
 #include <inttypes.h>
 #include "bateau.h"
 
-#define ALIGNEMENT_PORT_GAUCHE 20
-#define ALIGNEMENT_PORT_CENTRE 46
-#define ALIGNEMENT_PORT_DROITE 40
 
 
 #define MESSAGE_NOM_BATEAU       "Nom du bateau"
 #define MESSAGE_NOM_CATEGORIE    "Categorie"
 #define MESSAGE_NOM_PROPRIETAIRE "Nom du proprietaire"
+#define MESSAGE_SEPARATEUR       ":"
 
-
-#define MESSAGE_VOILE                     "Surface de la voile"
-#define MESSAGE_VOILE_UNITE               "[m²]"
+#define MESSAGE_VOILE                    "Surface de la voile"
+#define MESSAGE_VOILE_UNITE              "[m²]"
 
 #define MESSAGE_PUISSANCE_MOTEUR         "Puissance du moteur"
 #define MESSAGE_PUISSANCE_MOTEUR_UNITE   "[CV]"
