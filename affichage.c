@@ -58,3 +58,18 @@ void affichageBateau(const Bateau* bateau){
 
        printf("\n");
 }
+
+void affichageTaxe(TaxeTypeBateau* taxeTypeBateau){
+    assert(taxeTypeBateau);
+
+    for(size_t i = 0; i < 3; i++){
+           printf(MESSAGE_TAXE_SOMME" "MESSAGE_SEPARATEUR" %f\n",
+           (taxeTypeBateau + i)->sommeTotale); 
+
+           printf(MESSAGE_TAXE_MOYENNE" "MESSAGE_SEPARATEUR" %f\n",
+           (taxeTypeBateau + i)->montantMoyen); 
+           printf(MESSAGE_TAXE_MEDIANE" "MESSAGE_SEPARATEUR" %f\n",
+           (taxeTypeBateau + i)->montantMedian);
+    }
+
+}

@@ -6,6 +6,9 @@
 #define TAXE_BASE_VOILIER 50
 #define TAXE_BASE_MOTEUR 100
 
+
+typedef enum{ORDRE_PLAISANCE, ORDRE_PECHE, ORDRE_VOILIER} OrdreTaxe;
+
 typedef struct{
     double sommeTotale;
     double montantMoyen;

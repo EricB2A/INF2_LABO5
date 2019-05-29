@@ -19,13 +19,14 @@
 #include <stdio.h>
 #include <inttypes.h>
 #include "bateau.h"
+#include "taxes.h"
 
+#define MESSAGE_SEPARATEUR ":"
 
-
+// MESSAGES BATEAUX
 #define MESSAGE_NOM_BATEAU       "Nom du bateau"
 #define MESSAGE_NOM_CATEGORIE    "Categorie"
 #define MESSAGE_NOM_PROPRIETAIRE "Nom du proprietaire"
-#define MESSAGE_SEPARATEUR       ":"
 
 #define MESSAGE_VOILE                    "Surface de la voile"
 #define MESSAGE_VOILE_UNITE              "[m²]"
@@ -50,11 +51,12 @@ static const Nom NOM_TYPES_BATEAUX_MOTEUR[] = {
    "Bateau de peche", "Bateau de plaisance"
 };
 
-void affichageBateau(const Bateau* bateau);
+// MESSAGES TAXES
+#define MESSAGE_TAXE_SOMME   "Somme"
+#define MESSAGE_TAXE_MOYENNE "Moyenne"
+#define MESSAGE_TAXE_MEDIANE "Median"
 
-/* 
-TODO:
-   - Taxes
-   - Fonction pour compter # de bateau par type de bateau
-*/
+void affichageBateau(const Bateau* bateau);
+void affichageTaxe(TaxeTypeBateau* taxeTypeBateau);
+
 #endif AFFICHAGE_H

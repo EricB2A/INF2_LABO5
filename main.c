@@ -4,11 +4,8 @@
  Fichier     : <nom du fichier>.cpp
  Auteur(s)   : <prénom> <nom>
  Date        : <jj.mm.aaaa>
-
  But         : <à compléter>
-
  Remarque(s) : <à compléter>
-
  Compilateur : MinGW-g++ <x.y.z>
  -----------------------------------------------------------------------------------
 */
@@ -21,10 +18,11 @@
 #include "taxes.h"
 
 double calculMoyenne(double total, size_t nbrElements);
+double calculMedian(double valeurs[], size_t taille);
 void calculTaxesPort(const Bateau port[], size_t taille, TaxeTypeBateau* taxeTypeBateau);
 
 void affichageTaxe(TaxeTypeBateau* taxeTypeBateau);
-void affichagePort(Bateau port[], size_t taille);
+void affichagePort(const Bateau port[], size_t taille);
 
 int main(void){
 
@@ -81,13 +79,13 @@ double calculMedian(double valeurs[], size_t taille){
     double temp;
     //trie les valeurs dans l'ordre croissant
     for(size_t i = 0; i < taille-1; i++){
-         for(size_t j = 0; j < taille; j++){
-             if(valeurs[i] < valeurs[j]){
-                 temp = valeurs[i];
-                 valeurs[i] = valeurs[j];
-                 valeurs[j] = temp;
-             }
-         }
+        for(size_t j = 0; j < taille; j++){
+            if(valeurs[i] < valeurs[j]){
+                temp = valeurs[i];
+                valeurs[i] = valeurs[j];
+                valeurs[j] = temp;
+            }
+        }
     }
     if(taille % 2)
         return((valeurs[taille/2] + valeurs[taille/2 - 1]) / 2.0);
@@ -107,63 +105,54 @@ void calculTaxesPort(const Bateau port[], size_t taille, TaxeTypeBateau* taxeTyp
     for(size_t i = 0; i < taille; i++){
         if(port[i].typeBateau == BATEAU_VOILIER){
             assert(taxesBateauxVoiliers);
-            *(taxesBateauxVoiliers + (taxeTypeBateau + BATEAU_VOILIER)->nombreBateaux) = calculTaxes(&port[i]);
-            (taxeTypeBateau + BATEAU_VOILIER)->sommeTotale += calculTaxes(&port[i]);
-            (taxeTypeBateau + BATEAU_VOILIER)->nombreBateaux++;
+            *(taxesBateauxVoiliers + (taxeTypeBateau + ORDRE_VOILIER)->nombreBateaux) = calculTaxes(&port[i]);
+            (taxeTypeBateau + ORDRE_VOILIER)->sommeTotale += calculTaxes(&port[i]);
+            (taxeTypeBateau + ORDRE_VOILIER)->nombreBateaux++;
         }
         else if(port[i].typeBateau == BATEAU_PLAISANCE){
             assert(taxesBateauxPlaisances);
-            *(taxesBateauxVoiliers + (taxeTypeBateau + BATEAU_PLAISANCE)->nombreBateaux) = calculTaxes(&port[i]);
-            (taxeTypeBateau + BATEAU_PLAISANCE)->sommeTotale += calculTaxes(&port[i]);
-            (taxeTypeBateau + BATEAU_PLAISANCE)->nombreBateaux++;
+            *(taxesBateauxVoiliers + (taxeTypeBateau + ORDRE_PLAISANCE)->nombreBateaux) = calculTaxes(&port[i]);
+            (taxeTypeBateau + ORDRE_PLAISANCE)->sommeTotale += calculTaxes(&port[i]);
+            (taxeTypeBateau + ORDRE_PLAISANCE)->nombreBateaux++;
         }
         else{
             assert(taxesBateauxPeches);
-            *(taxesBateauxVoiliers + (taxeTypeBateau + BATEAU_PECHE)->nombreBateaux) = calculTaxes(&port[i]);
-            (taxeTypeBateau + BATEAU_PECHE)->sommeTotale += calculTaxes(&port[i]);
-            (taxeTypeBateau + BATEAU_PECHE)->nombreBateaux++;
+            *(taxesBateauxVoiliers + (taxeTypeBateau + ORDRE_PECHE)->nombreBateaux) = calculTaxes(&port[i]);
+            (taxeTypeBateau + ORDRE_PECHE)->sommeTotale += calculTaxes(&port[i]);
+            (taxeTypeBateau + ORDRE_PECHE)->nombreBateaux++;
         }
     }
 
     //Calcul des taxes moyenne
-    (taxeTypeBateau + BATEAU_VOILIER)->montantMoyen =
-            calculMoyenne((taxeTypeBateau + BATEAU_VOILIER)->sommeTotale,
-                    (taxeTypeBateau + BATEAU_VOILIER)->nombreBateaux);
-    (taxeTypeBateau + BATEAU_PECHE)->montantMoyen =
-            calculMoyenne((taxeTypeBateau + BATEAU_PECHE)->sommeTotale,
-                    (taxeTypeBateau + BATEAU_PECHE)->nombreBateaux);
-    (taxeTypeBateau + BATEAU_PLAISANCE)->montantMoyen =
-            calculMoyenne((taxeTypeBateau + BATEAU_PLAISANCE)->sommeTotale,
-                    (taxeTypeBateau + BATEAU_PLAISANCE)->nombreBateaux);
+    (taxeTypeBateau + ORDRE_VOILIER)->montantMoyen =
+            calculMoyenne((taxeTypeBateau + ORDRE_VOILIER)->sommeTotale,
+                          (taxeTypeBateau + ORDRE_VOILIER)->nombreBateaux);
+    (taxeTypeBateau + ORDRE_PLAISANCE)->montantMoyen =
+            calculMoyenne((taxeTypeBateau + ORDRE_PLAISANCE)->sommeTotale,
+                          (taxeTypeBateau + ORDRE_PLAISANCE)->nombreBateaux);
+    (taxeTypeBateau + ORDRE_PECHE)->montantMoyen =
+            calculMoyenne((taxeTypeBateau + ORDRE_PECHE)->sommeTotale,
+                          (taxeTypeBateau + ORDRE_PECHE)->nombreBateaux);
 
     //Reallocation des tableaux, on diminue la taille si necessaire afin de pouvoir calculer la mediane par la suite
-    taxesBateauxVoiliers =realloc(taxesBateauxVoiliers, (taxeTypeBateau + BATEAU_VOILIER)->nombreBateaux * sizeof(double));
-    taxesBateauxPeches = realloc(taxesBateauxPeches, (taxeTypeBateau + BATEAU_PECHE)->nombreBateaux * sizeof(double));
-    taxesBateauxPlaisances = realloc(taxesBateauxPlaisances, (taxeTypeBateau + BATEAU_PLAISANCE)->nombreBateaux * sizeof(double));
+    taxesBateauxVoiliers =realloc(taxesBateauxVoiliers, (taxeTypeBateau + ORDRE_VOILIER)->nombreBateaux * sizeof(double));
+    taxesBateauxPeches = realloc(taxesBateauxPeches, (taxeTypeBateau + ORDRE_PECHE)->nombreBateaux * sizeof(double));
+    taxesBateauxPlaisances = realloc(taxesBateauxPlaisances, (taxeTypeBateau + ORDRE_PLAISANCE)->nombreBateaux * sizeof(double));
     assert(taxesBateauxVoiliers);
     assert(taxesBateauxPeches);
-    assert(taxesBateauxPlaisances);
+  //  assert(taxesBateauxPlaisances);
 
     //Calcul des taxes médianes
-    (taxeTypeBateau + BATEAU_VOILIER)->montantMedian =
-            calculMedian(taxesBateauxVoiliers, (taxeTypeBateau + BATEAU_VOILIER)->nombreBateaux);
-    (taxeTypeBateau + BATEAU_PECHE)->montantMedian =
-            calculMedian(taxesBateauxPeches, (taxeTypeBateau + BATEAU_PECHE)->nombreBateaux);
-    (taxeTypeBateau + BATEAU_PLAISANCE)->montantMedian =
-            calculMedian(taxesBateauxPlaisances, (taxeTypeBateau + BATEAU_PLAISANCE)->nombreBateaux);
+    (taxeTypeBateau + ORDRE_VOILIER)->montantMedian =
+            calculMedian(taxesBateauxVoiliers, (taxeTypeBateau + ORDRE_VOILIER)->nombreBateaux);
+    (taxeTypeBateau + ORDRE_PECHE)->montantMedian =
+            calculMedian(taxesBateauxPeches, (taxeTypeBateau + ORDRE_PECHE)->nombreBateaux);
+    //(taxeTypeBateau + ORDRE_PLAISANCE)->montantMedian =
+      //      calculMedian(taxesBateauxPlaisances, (taxeTypeBateau + ORDRE_PLAISANCE)->nombreBateaux);
 }
 
-void affichagePort(Bateau port[], size_t taille){
+void affichagePort(const Bateau port[], size_t taille){
     for(size_t i = 0; i < taille; i++){
         affichageBateau(&port[i]);
     }
-}
-
-void affichageTaxe(TaxeTypeBateau* taxeTypeBateau){
-    assert(taxeTypeBateau);
-
-    for(size_t i = 0; i < 3; i++){
-        printf(" Somme : %f  ----------Moyen : %f -----------Median %f", (taxeTypeBateau + i)->sommeTotale, (taxeTypeBateau + i)->montantMoyen, (taxeTypeBateau + i)->montantMedian);
-    }
-
 }
