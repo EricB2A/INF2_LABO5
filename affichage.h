@@ -42,7 +42,7 @@
 #define MESSAGE_LONGUEUR_BATEAU          "Longueur"
 #define MESSAGE_LONGUEUR_BATEAU_UNITE    "[m]"
 
-#define MESSAGE_CATEGORIES   "Categories"
+#define MESSAGE_CATEGORIES   "Categorie"
 #define MESSAGE_NB_BATEAUX   "Nombre bateaux"
 #define MESSAGE_TAXE_SOMME   "Somme des taxes"
 #define MESSAGE_TAXE_MOYENNE "En moyenne"
@@ -53,7 +53,7 @@ static const Nom NOM_TYPES_BATEAUX_MOTEUR[] = {
    "Bateau de peche", "Bateau de plaisance"
 };
 
-void affichageBateau(const Bateau bateau);
+void affichageBateau(const Bateau* bateau);
 
 /* 
 TODO:

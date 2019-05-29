@@ -76,7 +76,7 @@ Bateau voilier(Nom nom, uint16_t surfaceVoile);
 Bateau bateauPeche(Nom nom, uint16_t puissancMoteur, uint8_t capacitePecheMax);
 Bateau bateauPlaisance(Nom nom, uint16_t puissanceMoteur, uint8_t longueur, Nom nomProprietaire);
 
-TypeBateau typeBateau(const Bateau bateau);
-TypeBateauMoteur typeBateauMoteur(const Bateau bateau);
+TypeBateau typeBateau(const Bateau* bateau);
+TypeBateauMoteur typeBateauMoteur(const Bateau* bateau);
 
 #endif //BATEAUX_H

@@ -72,9 +72,9 @@ Bateau bateauPlaisance(Nom nom, uint16_t puissanceMoteur, uint8_t longueur, Nom 
    };
 }
 
-TypeBateau typeBateau(const Bateau bateau){
-    return bateau.typeBateau;
+TypeBateau typeBateau(const Bateau* bateau){
+    return bateau->typeBateau;
 }
-TypeBateauMoteur typeBateauMoteur(const Bateau bateau){
-    return bateau.uTypeBateau.bateauMoteur.typeBateauMoteur;
+TypeBateauMoteur typeBateauMoteur(const Bateau* bateau){
+    return bateau->uTypeBateau.bateauMoteur.typeBateauMoteur;
 }

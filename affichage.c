@@ -15,65 +15,51 @@
 
 #include "affichage.h"
 
-void affichageBateau(const Bateau bateau){
-       printf("%s %30s \n", MESSAGE_NOM_BATEAU, bateau.nom);
-       return;
-   printf("%-*s %*s \n", 
-          ALIGNEMENT_PORT_GAUCHE,
-          MESSAGE_NOM_BATEAU,
-          ALIGNEMENT_PORT_DROITE,
-          bateau.nom);
+void affichageBateau(const Bateau* bateau){
 
-   if(bateau.typeBateau == BATEAU_VOILIER){
-      printf("%.*s %*s \n", 
-             ALIGNEMENT_PORT_GAUCHE,
-             MESSAGE_CATEGORIES, 
-             ALIGNEMENT_PORT_DROITE,
-             NOM_TYPES_BATEAUX[bateau.typeBateau]);
+       printf("%s %30s \n",
+              MESSAGE_NOM_BATEAU,
+              bateau->nom);
 
-      printf("%-*s %*" PRIu16" %-s \n", 
-             ALIGNEMENT_PORT_GAUCHE,
-             MESSAGE_VOILE, 
-             ALIGNEMENT_PORT_DROITE,
-             bateau.uTypeBateau.bateauVoilier.surfaceVoile,
-             MESSAGE_VOILE_UNITE);
-   }else{
-      printf("%-*s %*s \n", 
-             ALIGNEMENT_PORT_GAUCHE,
-             MESSAGE_CATEGORIES, 
-             ALIGNEMENT_PORT_DROITE,
-             NOM_TYPES_BATEAUX_MOTEUR[bateau.uTypeBateau.bateauMoteur.typeBateauMoteur]);
+       printf("%s %30s \n",
+              MESSAGE_CATEGORIES,
+              NOM_TYPES_BATEAUX[bateau->typeBateau]);
 
-      printf("%-*s %*" PRIu16" %-s \n", 
-             ALIGNEMENT_PORT_GAUCHE,
-             MESSAGE_PUISSANCE_MOTEUR,
-             ALIGNEMENT_PORT_DROITE,
-             bateau.uTypeBateau.bateauMoteur.puissanceMoteur,
-             MESSAGE_PUISSANCE_MOTEUR_UNITE);
+       if(typeBateau(bateau) == BATEAU_VOILIER){
+              printf("%s %*" PRIu16 " %s \n",
+                     MESSAGE_VOILE,
+                     bateau->uTypeBateau.bateauVoilier.surfaceVoile,
+                     MESSAGE_VOILE_UNITE);
 
-      if(bateau.uTypeBateau.bateauMoteur.typeBateauMoteur == BATEAU_MOTEUR){
-             printf("%-*s %*" PRIu8 " %-s \n",
-                    ALIGNEMENT_PORT_GAUCHE,
-                    MESSAGE_CAPACITE_PECHE_MAX,
-                    ALIGNEMENT_PORT_DROITE,
-                    bateau.uTypeBateau.bateauMoteur.uTypeBateauMoteur.bateauPeche.capacitePecheMax,
-                    MESSAGE_CAPACITE_PECHE_MAX_UNITE);
-      }
-      else if (bateau.uTypeBateau.bateauMoteur.typeBateauMoteur == BATEAU_PLAISANCE){
+       }else{ // BATEAU A MOTEUR
 
-             printf("%-*s %*s \n",
-                    ALIGNEMENT_PORT_GAUCHE,
-                    MESSAGE_NOM_PROPRIETAIRE,
-                    ALIGNEMENT_PORT_DROITE,
-                    bateau.uTypeBateau.bateauMoteur.uTypeBateauMoteur.bateauPlaisance.nomProprietaire);
+              printf("%s %30s \n",
+                     MESSAGE_CATEGORIES,
+                     NOM_TYPES_BATEAUX[bateau->typeBateau]);
 
-             printf("%-*s %*" PRIu8" %-s \n",
-                    ALIGNEMENT_PORT_GAUCHE,
-                    MESSAGE_LONGUEUR_BATEAU,
-                    ALIGNEMENT_PORT_DROITE,
-                    bateau.uTypeBateau.bateauMoteur.uTypeBateauMoteur.bateauPlaisance.longueur,
-                    MESSAGE_LONGUEUR_BATEAU_UNITE);
-      }
-   }
+              printf("%s %*" PRIu16 " %s \n",
+                     MESSAGE_PUISSANCE_MOTEUR,
+                     bateau->uTypeBateau.bateauMoteur.puissanceMoteur,
+                     MESSAGE_PUISSANCE_MOTEUR_UNITE
+                     );
+
+              if(typeBateauMoteur(bateau) == BATEAU_PLAISANCE){
+
+                     printf("%s %30s \n",
+                            MESSAGE_NOM_PROPRIETAIRE,
+                            bateau->uTypeBateau.bateauMoteur.uTypeBateauMoteur.bateauPlaisance.nomProprietaire);
+                     
+                     printf("%s %*" PRIu8 " %s \n",
+                            MESSAGE_LONGUEUR_BATEAU,
+                            bateau->uTypeBateau.bateauMoteur.uTypeBateauMoteur.bateauPlaisance.nomProprietaire,
+                            MESSAGE_LONGUEUR_BATEAU_UNITE
+                            );
+                     
+              }
+       }
+
+
+  
+   
    printf("\n");
 }
